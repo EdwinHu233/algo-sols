@@ -2,24 +2,25 @@
 #include <cstdio>
 using namespace std;
 
-const int N = 100000 + 10;
-int xs[N];
-int n, k;
-int max_t;
+typedef unsigned long long ULL;
+const ULL N = 100000 + 10;
+ULL xs[N];
+ULL n, k;
+ULL max_t;
 
 void init() {
-    max_t = -1;
-    scanf("%d", &n);
-    for (int i = 0; i < n; ++i) {
-        scanf("%d", xs + i);
+    max_t = 0;
+    scanf("%llu", &n);
+    for (ULL i = 0; i < n; ++i) {
+        scanf("%llu", xs + i);
         max_t = max(max_t, xs[i]);
     }
-    scanf("%d", &k);
+    scanf("%llu", &k);
 }
 
-inline bool C(int x) {
-    int sum = 0;
-    for (int i = 0; i < n; ++i) {
+inline bool C(ULL x) {
+    ULL sum = 0;
+    for (ULL i = 0; i < n; ++i) {
         if (xs[i] <= x) continue;
         sum += (xs[i] - x + k - 2) / (k - 1);
     }
@@ -28,17 +29,17 @@ inline bool C(int x) {
 
 void solve() {
     if (k == 1) {
-        printf("%d\n", max_t);
+        printf("%llu\n", max_t);
     } else {
-        int l = 0, h = max_t;
+        ULL l = 0, h = max_t;
         while (l < h) {
-            int mid = (h - l) / 2 + l;
+            ULL mid = (h - l) / 2 + l;
             if (C(mid))
                 h = mid;
             else
                 l = mid + 1;
         }
-        printf("%d\n", l);
+        printf("%llu\n", l);
     }
 }
 
